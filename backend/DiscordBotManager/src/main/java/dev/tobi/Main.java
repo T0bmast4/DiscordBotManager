@@ -1,18 +1,10 @@
 package dev.tobi;
 
+import dev.tobi.api.ApiRequests;
 import io.vertx.core.Vertx;
 import io.vertx.core.http.HttpServer;
-import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.events.session.ReadyEvent;
-import net.dv8tion.jda.api.exceptions.InvalidTokenException;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
-
-import java.util.EnumSet;
 
 public class Main extends ListenerAdapter {
     private Vertx vertx;
@@ -26,7 +18,7 @@ public class Main extends ListenerAdapter {
         HttpServer server = vertx.createHttpServer();
         Router router = Router.router(vertx);
 
-        ApiRequests.setupRoutes(router);
+        new ApiRequests().setupRoutes(router);
 
         server.requestHandler(router).listen(8765, result -> {
             if (result.succeeded()) {

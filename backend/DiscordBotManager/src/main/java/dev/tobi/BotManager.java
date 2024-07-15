@@ -1,14 +1,7 @@
 package dev.tobi;
 
-import io.vertx.core.json.JsonObject;
-import io.vertx.ext.web.RoutingContext;
-import net.dv8tion.jda.api.JDA;
-import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.exceptions.InvalidTokenException;
-import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.dv8tion.jda.api.utils.cache.CacheFlag;
+import dev.tobi.bot.DcBot;
 
-import java.util.EnumSet;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,11 +9,11 @@ public class BotManager {
 
     private static final Map<String, DcBot> bots = new HashMap<>();
 
-    public static synchronized DcBot getBot(String token) {
+    public static synchronized DcBot getBotByToken(String token) {
         return bots.get(token);
     }
 
-    public static synchronized void startBot(String token) throws Exception {
+    public static synchronized void startBot(String token) {
         if (!bots.containsKey(token)) {
             DcBot bot = new DcBot(token);
             bot.start();

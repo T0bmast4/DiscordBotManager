@@ -70,11 +70,12 @@ class _BotOverviewWidget extends State<BotOverviewPage> {
               .toList(),
         ),
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           _showAddForm(context);
         },
-        child: Icon(Icons.add),
+        label: Text("Neuer Bot"),
+        icon: Icon(Icons.add),
       ),
     );
   }

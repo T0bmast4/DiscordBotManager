@@ -1,8 +1,5 @@
-import 'package:discord_bot_manager/edit_bot.dart';
-
 import 'bot_overview.dart';
 import 'package:flutter/material.dart';
-import 'botmanager.dart';
 
 void main() {
   runApp(const MyApp());
