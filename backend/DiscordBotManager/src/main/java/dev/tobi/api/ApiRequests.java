@@ -21,7 +21,7 @@ public class ApiRequests {
                 .end(response.toJson().encodePrettily());
     }
 
-    public boolean validateToken(RoutingContext ctx, String token) {
+    public boolean isTokenValid(RoutingContext ctx, String token) {
         if (token == null || token.isEmpty()) {
             handleError(ctx, 400, "Token is missing or empty");
             return false;
@@ -33,11 +33,10 @@ public class ApiRequests {
         ctx.request().bodyHandler(body -> {
             JsonObject jsonBody = body.toJsonObject();
             String token = jsonBody.getString("token");
-            if (validateToken(ctx, token)) return;
+            if (!isTokenValid(ctx, token)) return;
 
             try {
                 BotManager.startBot(token);
-
                 ApiResponse response = new ApiResponse("Success", "Bot started successfully");
                 ctx.response()
                         .putHeader("Content-Type", "application/json")
@@ -54,7 +53,7 @@ public class ApiRequests {
         ctx.request().bodyHandler(body -> {
             JsonObject jsonBody = body.toJsonObject();
             String token = jsonBody.getString("token");
-            if (validateToken(ctx, token)) return;
+            if (!isTokenValid(ctx, token)) return;
 
             try {
                 BotManager.stopBot(token);
@@ -72,13 +71,15 @@ public class ApiRequests {
     }
 
     private void handleIsBotOnline(RoutingContext ctx) {
+        System.out.println(BotManager.getBots());
         ctx.request().bodyHandler(body -> {
             JsonObject jsonBody = body.toJsonObject();
             String token = jsonBody.getString("token");
-            if (validateToken(ctx, token)) return;
+            if (!isTokenValid(ctx, token)) return;
 
             try {
                 boolean isOnline = BotManager.getBots().containsKey(token);
+                System.out.println(isOnline);
                 ApiResponse response = new ApiResponse("Success", String.valueOf(isOnline));
                 ctx.response()
                         .putHeader("Content-Type", "application/json")

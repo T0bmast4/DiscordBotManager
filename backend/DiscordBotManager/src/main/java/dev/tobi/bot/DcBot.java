@@ -1,12 +1,10 @@
 package dev.tobi.bot;
 
-import dev.tobi.bot.commands.CommandManager;
+import dev.tobi.bot.commands.*;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
-import net.dv8tion.jda.api.interactions.commands.Command;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
-import org.bukkit.command.CommandExecutor;
 
 import java.util.EnumSet;
 
@@ -28,6 +26,12 @@ public class DcBot {
                     .build();
 
             commandManager = new CommandManager(jda);
+            commandManager.registerCommand(new PlayCommand());
+            commandManager.registerCommand(new TestCommand());
+            commandManager.registerCommand(new JoinCommand());
+            commandManager.registerCommand(new TrollCommand());
+            commandManager.registerCommand(new BrCommand());
+            commandManager.registerCommand(new GlückCommand());
             jda.addEventListener(commandManager);
         }
     }
@@ -50,5 +54,4 @@ public class DcBot {
     public CommandManager getCommandManager() {
         return commandManager;
     }
-
 }

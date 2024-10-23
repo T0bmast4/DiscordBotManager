@@ -10,5 +10,11 @@ public abstract class Command {
     String description;
     List<OptionData> options;
 
+    public Command(String name, String description, List<OptionData> options) {
+        this.name = name;
+        this.description = description;
+        this.options = options;
+    }
+
     public abstract void execute(SlashCommandInteractionEvent event);
 }

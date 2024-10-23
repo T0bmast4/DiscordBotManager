@@ -22,17 +22,25 @@ public class CommandManager extends ListenerAdapter {
     public void onReady(ReadyEvent event) {
         for(Guild guild : jda.getGuilds()) {
             for(Command command : commands) {
-                guild.upsertCommand(command.name, command.description).addOptions(command.options).queue();
+                if(command.options != null) {
+                    guild.upsertCommand(command.name, command.description).addOptions(command.options).queue();
+                }else{
+                    guild.upsertCommand(command.name, command.description).queue();
+                }
             }
         }
     }
 
     @Override
     public void onSlashCommandInteraction(SlashCommandInteractionEvent event) {
+        String commandName = event.getName();
         for(Command command : commands) {
-            command.execute(event);
-            return;
+            if (command.name.equals(commandName)) {
+                command.execute(event);
+                return;
+            }
         }
+        event.reply("Unknown command!").queue();
     }
 
     public void registerCommand(Command command) {
@@ -40,5 +48,9 @@ public class CommandManager extends ListenerAdapter {
         for(Guild guild : jda.getGuilds()) {
             guild.upsertCommand(command.name, command.description).addOptions(command.options).queue();
         }
+    }
+
+    public List<Command> getCommands() {
+        return commands;
     }
 }
