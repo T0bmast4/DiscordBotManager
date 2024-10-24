@@ -1,19 +1,18 @@
-package dev.tobi.bot.commands;
+package dev.tobi.bot.commands.testCommands;
 
+import dev.tobi.bot.commands.Command;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class BrCommand extends Command{
+public class BrCommand extends Command {
 
     public BrCommand() {
         super("br", "Randomly kicks a channel member!", null);

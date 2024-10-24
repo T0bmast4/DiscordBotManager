@@ -1,6 +1,8 @@
 package dev.tobi.api;
 
-import dev.tobi.BotManager;
+import dev.tobi.bot.BotManager;
+import dev.tobi.bot.DcBot;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -71,7 +73,6 @@ public class ApiRequests {
     }
 
     private void handleIsBotOnline(RoutingContext ctx) {
-        System.out.println(BotManager.getBots());
         ctx.request().bodyHandler(body -> {
             JsonObject jsonBody = body.toJsonObject();
             String token = jsonBody.getString("token");
@@ -79,7 +80,6 @@ public class ApiRequests {
 
             try {
                 boolean isOnline = BotManager.getBots().containsKey(token);
-                System.out.println(isOnline);
                 ApiResponse response = new ApiResponse("Success", String.valueOf(isOnline));
                 ctx.response()
                         .putHeader("Content-Type", "application/json")
@@ -89,6 +89,50 @@ public class ApiRequests {
             } catch (Exception e) {
                 handleError(ctx, 500, "Error checking if bot is online: " + e.getMessage());
             }
+        });
+    }
+
+    /* Command
+    {
+      "token": "YOUR_BOT_TOKEN",
+      "commandName": "dynamicCommand",
+      "description": "This command executes multiple dynamic actions",
+      "actions": [
+        {
+          "actionName": "SEND_MESSAGE",
+          "parameters": {
+            "message": "Hello, World!"
+          }
+        },
+        {
+          "actionName": "REACT_WITH_EMOJI",
+          "parameters": {
+            "emoji": "🎉"
+          }
+        },
+        {
+          "actionName": "MENTION_USER",
+          "parameters": {
+            "userId": "123456789"
+          }
+        }
+      ]
+    }
+     */
+
+    private void handleCustomCommand(RoutingContext ctx) {
+        ctx.request().bodyHandler(body -> {
+            JsonObject jsonBody = body.toJsonObject();
+            String token = jsonBody.getString("token");
+            if (!isTokenValid(ctx, token)) return;
+
+            String commandName = jsonBody.getString("commandName");
+            String description = jsonBody.getString("description");
+            JsonArray actions = jsonBody.getJsonArray("actions");
+
+            DcBot bot = BotManager.getBotByToken(token);
+
+            bot.getCommandManager().registerCommand(new CustomCommand());
         });
     }
 }

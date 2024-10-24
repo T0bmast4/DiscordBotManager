@@ -1,17 +1,17 @@
-package dev.tobi.bot.commands;
+package dev.tobi.bot.commands.testCommands;
 
+import dev.tobi.bot.commands.Command;
 import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.channel.concrete.VoiceChannel;
 import net.dv8tion.jda.api.entities.channel.middleman.AudioChannel;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
-import net.dv8tion.jda.api.interactions.commands.build.OptionData;
 
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class TrollCommand extends Command{
+public class TrollCommand extends Command {
 
     public TrollCommand() {
         super("troll", "This command moves you to a random channel!", null);

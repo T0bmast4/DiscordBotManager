@@ -1,6 +1,6 @@
-package dev.tobi.bot.commands;
+package dev.tobi.bot.commands.testCommands;
 
-import dev.tobi.bot.actions.BotCommandAction;
+import dev.tobi.bot.commands.Command;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.managers.AudioManager;
 

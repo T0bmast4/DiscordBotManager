@@ -1,6 +1,4 @@
-package dev.tobi;
-
-import dev.tobi.bot.DcBot;
+package dev.tobi.bot;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,6 +27,10 @@ public class BotManager {
             bots.remove(token);
         }
         System.out.println(bots);
+    }
+
+    public static synchronized boolean isOnline(String token) {
+        return bots.containsKey(token);
     }
 
     public static Map<String, DcBot> getBots() {

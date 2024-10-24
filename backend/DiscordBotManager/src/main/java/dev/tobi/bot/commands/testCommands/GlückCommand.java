@@ -1,19 +1,18 @@
-package dev.tobi.bot.commands;
+package dev.tobi.bot.commands.testCommands;
 
+import dev.tobi.bot.commands.Command;
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionType;
 import net.dv8tion.jda.api.interactions.commands.build.OptionData;
-import net.dv8tion.jda.api.managers.AudioManager;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class GlückCommand extends Command{
+public class GlückCommand extends Command {
 
     public GlückCommand() {
         super("glück", "Generiert eine zufällige Zahl", List.of(new OptionData(OptionType.INTEGER, "zahl", "Errate die Zufallszahl")));
